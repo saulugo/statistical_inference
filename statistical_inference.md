@@ -203,3 +203,132 @@ Suppose that a die is rolled and X is the number faced up. What is the **Expecte
 
 <img src="./img/si_006.png">
 
+#Week 2
+
+##Variance
+The variance is the square root of the standard deviation.
+
+<img src="./img/si_010.png">
+
+In the case of the flip of a coin, the variance is such that:
+
+ V(x) = p(1 - p), where P is the probability of one of the faces of the coin
+ 
+ ###Sample variance
+ 
+ The sample variance:
+ 
+ - Has an associate population distribution
+ - Its expected value is the same value of the variance of the population it is trying to estimate.
+ 
+ <img src="./img/si_011.png">
+
+**As you collect more and more data, the distribution of the sample will be more concentrated around the population variance it is trying to estimate.**
+
+And the square root of the sample variance is the **sample standard deviation.**
+
+##The Simulation Experiment
+
+As I get more and more data, the sample distribution will be more concentrated around the variance of the population that the sample is trying to estimate:
+
+<img src="./img/si_012.png">
+
+In a simulation what I do is to repeat the experiment as many times as the sample I am selecting and calculate the variance of that repetition experiment. Then what I do is to repeat this set of repetitions many, many times (like thousands of times) and calculate each time the variance of the sample and I get a distribution that is concentrated around the variance of the total population. The larger the sample (the higher the number of repetitions per experiment) the more concentrated is the experiment distribution around the variance of the population.
+
+The following example is the repetition thousand of times of the experiment of roll 10 dices, 20 dices and 30 dices. The distributions in the picture are the distribution of the variance of each repetition of 10, 20 and 30 samples (die rolls). Look that the higher the number of repetitions the more concentrated is the distribution of the resulting experiment:
+
+<img src="./img/si_013.png">
+
+##Simulation Experiments with the Mean
+
+Remember that the average (the mean) of a sample of variables is also a random variable with its own distribution. The sample mean is the same of the mean of the original population:
+
+        E[^X] = u   (^X is the sample of the population, u is the mean of the total population)
+        
+<img src="./img/si_014.png">
+
+**So, the square root of the variance is the standard deviation. We call it the standard error.**
+
+###Summary
+
+1) The sample variance S^2, estimates the population variance (sigma sq)
+2) The distribution of the sample variance S^2 is centered around sigma sq (the variance of the population)
+3) The variance of sample mean is variance of the population devided by n, where n is the number of repetition of the experiment
+4) So the variance of the sample mean is = sigma sq/n
+5) From 4, we can deduct that the logical esptimate of the variance of the sample mean is S^2/n
+6) And the logical estimate of the standard error is S/sq root of n
+
+###Conclusions
+
+- The sample variance estimates the population variance
+- The distribution of the sample variance is centered at what it is estimating
+- It gets more concentrated around what it is estimating as one collects more data (more repetitions per experiment)
+- The variance of the sample mean is equal to the population variance devided by n, where n is the number of repetitions per experiment
+
+##Binomial Distribution
+
+###Bernoulli Distribution
+The Bernoulli distribution arises as the result of a binary outcome, i.e, the flip of a coin, where p is the probability of one of the faces of the coin:
+
+<img src="./img/si_015.png">
+
+Where (n x)  reads "n choose x", counts the number of ways of selecting x items out of n without replacement disregarding the order of the items.
+
+###Example of a binomial distribution
+Imagine a couple that has 8 children, 7 out of which are girls and none are twins. If the probability of give birth a boy or a girl is 0.5 (p = 0.5), then the probability of have 7 girls out of 8 children is the following:
+
+        (8 7)*0.5^7(1-0.5)^(8-7) + (8 8)*0.5^8(1 - 0.5)^(8 - 8)
+        
+In R, this is the code:
+
+```r
+choose(8,7)*0.5^7*(1-0.5)^(8-7) + choose(8,8)*.5^8
+```
+
+```
+## [1] 0.03515625
+```
+
+```r
+#Also there is a binomial probability function built in in R pbinom#
+pbinom(6, size=8, prob=0.5, lower.tail = FALSE)
+```
+
+```
+## [1] 0.03515625
+```
+
+##The Normal Distribution
+
+<img src="./img/si_016.png">
+
+<img src="./img/si_017.png">
+
+In any normal distribution, the area below the density curve between one and minus one standard deviation covers about 68% of the distribution.
+
+Then the area between -2 and +2 standard deviation is about 95% of the density:
+
+<img src="./img/si_018.png">
+
+And then, the area between -3 and +3 sd is about 99% of the density:
+
+<img src="./img/si_019.png">
+
+##How to Convert the Normal Distribution to Standard Nomal Distribution and viceversa
+
+If we have X that is a Nomal Distribution, then we can convert it to the Standard Normal Distribution (we call it Z) the following way:
+
+<img src="./img/si_020.png">
+
+So, 68%, 95%, and 99% of a nomal density lies within 1, 2 and 3 standard deviations from the mean respectively.
+
+Similary, we should remember the following percentiles of the normal distribution:
+
+<img src="./img/si_021.png">
+
+**In general, a typical calculation to remember is:**
+
+What is the probability that a N(u, sigma2) RV is larger than x?
+
+<img src="./img/si_022.png">
+

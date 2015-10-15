@@ -307,3 +307,4 @@ Similary, we should remember the following percentiles of the normal distributio
 What is the probability that a N(u, sigma2) RV is larger than x?
 
 <img src="./img/si_022.png">
+
