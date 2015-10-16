@@ -308,3 +308,89 @@ What is the probability that a N(u, sigma2) RV is larger than x?
 
 <img src="./img/si_022.png">
 
+##The Poisson Distribution
+<img src="./img/si_023.png">
+
+Some uses of the Poisson Distribution:
+
+- Modeling count data
+- Modeling event-time or survival data
+- Modeling contingency tables
+- Approximating binomials when n is large and p is small
+
+Note that:
+
+- The mean of a Possion Distribution is equal to lambda
+- The variance is also equal to lambda (l)
+
+Other use of the Possion Distribution is to model rates:
+
+- X is a Poisson(l*t) where:
+- l = E[X/t] is the expected value of count per unit of time
+- t is the total monitoring time
+
+###Example:
+The number of people that show up at a bus stop is Poisson with a mean (l) of 2.5 per hour.
+
+If watching the bus stop for 4 hours, what is the probability that 3 or fewer people show up for the whole time?
+
+```{r poisson_example}
+
+ppois(3, lambda = 2.5 * 4)
+
+```
+
+###Poisson as an aproximation of Binomial
+
+Example, we flip a coin with success probability of 0.01 five hundred times. (so n is large and p is small)
+
+```{r poisson_binomial_example}
+
+pbinom(2, size = 500, prob = 0.01)
+
+ppois(2, lambda = 500 * 0.01)
+```
+
+##Law of Large Numbers
+
+The **Law of Large Numbers** says that as the sample grows, its mean gets closer and closer to the mean of the whole population.
+
+- An estimator is **consistent** if it converges to what your want to estimate
+- The LLN says that the sample mean of iid samples is consistent for the population mean
+- Typically, good estimators are consistent; it's not too much to ask that if we go to the trouble of collecting an infinite amount of data that we get the right answer.
+
+##The Central Limit Theorem
+The CLT, states that the distribution of averages of iid variables (properly normilized) becomes that of a standard normal as the sample size increases
+
+<img src="./img/si_024.png">
+
+##Confidence Intervals
+<img src="./img/si_025.png">
+
+###R Code example for the Calculation of the Confidence Interval
+
+```{r confidence_interval_example}
+require(UsingR)
+data(father.son)
+x <- father.son$sheight
+round((mean(x) + c(-1,1) * qnorm(0.975) * sd(x)/sqrt(length(x)))/12,3)
+```
+
+###Confidence Interval for Binomial Variables
+
+<img src="./img/si_026.png">
+
+##LNL and CLT Summary
+
+- The LLN states averages of iid samples converge to the population means that they are estimating.
+- The CLT that averages are approximately normal, with distributions
+        - centered at the population mean
+        - with standard deviation equal to the standard error of the mean
+        - CLT gives no guarantee that n is large enough
+
+**Confidence interval for the mean:** one can gets a confidence interval for the mean by taking the mean and subtracting and adding the relevant normal quantile times the standard error.
+        - Adding and subtracting 2 SEs works for 95% intervals
+
+- The Poisson and Binomial case have exact intervals that don't require the CLT
+        - But a quick fix for small sample size binomial calculation is to add 2 successes and 2 failures
+        
