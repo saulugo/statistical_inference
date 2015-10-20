@@ -1,0 +1,49 @@
+---
+title: "Comparison of the Exponential Distribution and the Central Limit Theorem"
+author: "Saul Lugo"
+date: "October 20, 2015"
+output: html_document
+---
+
+#Overview
+The purpose of this report is to compare the **Exponential Distribution** to the **Central Limit Theorem**. Using a Simulation, it will be shown that the distribution of averages of n number of random exponential variables becomes that of an standard nomral as n sample size increases. This is exactly what the Central Limit Theorem states.
+
+#Simulations
+To study the exponential distribution, let's first compare the distribution of **10000** random exponentials with the distribution of 40 averages of random exponentials:
+
+
+
+```r
+set.seed(5)
+lambda = 0.2
+n = 10000
+y <- rexp(n, rate = lambda)
+hist(y,ylab="prob(y)")
+```
+
+![plot of chunk exp_dist_simulation](figure/exp_dist_simulation-1.png) 
+
+```r
+mean_y <- mean(y)
+mean_y
+```
+
+```
+## [1] 5.020154
+```
+
+```r
+sd_y <- sd(y)
+sd_y
+```
+
+```
+## [1] 5.049076
+```
+
+So, it is known that the teorethical mean of the exponential distribution is equal to 1/lambda. 
+        - In this example, lambda = 0.2, so 1/lambda = 5
+        - As it was shown in the previous R chunk, the mean of these ```{r mean_y}```
+        
+
+
