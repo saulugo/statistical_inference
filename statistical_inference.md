@@ -206,7 +206,7 @@ Suppose that a die is rolled and X is the number faced up. What is the **Expecte
 #Week 2
 
 ##Variance
-The variance is the square root of the standard deviation.
+The standard deviation is the square root of the variance.
 
 <img src="./img/si_010.png">
 
@@ -421,6 +421,50 @@ round((mean(x) + c(-1,1) * qnorm(0.975) * sd(x)/sqrt(length(x)))/12,3)
 ###Confidence Interval for Binomial Variables
 
 <img src="./img/si_026.png">
+
+###R Function for Binomial Confidence Inverval
+
+
+```r
+# if 56 out of 100 people wants to vote for a candidate, what is the 95% confidence interval 
+
+0.56 + c(-1,1) * qnorm(0.975) * sqrt(0.56 * 0.44/100)
+```
+
+```
+## [1] 0.4627099 0.6572901
+```
+
+```r
+# using the built in R function
+
+binom.test(56,100)$conf.int
+```
+
+```
+## [1] 0.4571875 0.6591640
+## attr(,"conf.level")
+## [1] 0.95
+```
+
+###Simulation
+
+
+```r
+n <- 20
+pvals <- seq(0.1, 0.9, by = 0.05)
+nosim <- 1000
+coverage <- sapply(pvals, function(p){
+        phats <- rbinom(nosim, prob = p, size = n)/n
+        ll <- phats - qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+        ul <- phats + qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+        mean(ll < p & ul > p)
+})
+plot(pvals, coverage, type="l")
+abline(h=0.95)
+```
+
+![plot of chunk binomial_interval_simulation](figure/binomial_interval_simulation-1.png) 
 
 ##LNL and CLT Summary
 
